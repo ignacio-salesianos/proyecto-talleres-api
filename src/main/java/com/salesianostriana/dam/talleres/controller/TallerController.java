@@ -121,7 +121,7 @@ public class TallerController {
 
     @Operation(
             summary = "Crear un taller",
-            description = "Crea un nuevo taller asignado a un organizador existente. Se crea sin participantes"
+            description = "Crea un nuevo taller asignado a un organizador existente. Se crea sin participantes. El título no se puede repetir, sin tener en cuenta mayúsculas ni espacios en los extremos"
     )
     @ApiResponses({
             @ApiResponse(
@@ -175,6 +175,26 @@ public class TallerController {
                                             """
                             )
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Ya existe un taller con ese título",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Taller ya existe",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/taller-ya-existe",
+                                              "title": "Taller ya existe",
+                                              "status": 409,
+                                              "detail": "Ya existe un taller con el título 'Escritura creativa'",
+                                              "instance": "/api/v1/talleres"
+                                            }
+                                            """
+                            )
+                    )
             )
     })
     @PostMapping
@@ -185,7 +205,7 @@ public class TallerController {
 
     @Operation(
             summary = "Editar un taller",
-            description = "Modifica el título, las fechas y el organizador de un taller existente"
+            description = "Modifica el título, las fechas y el organizador de un taller existente. Se puede mantener su propio título, pero no poner el de otro taller"
     )
     @ApiResponses({
             @ApiResponse(
@@ -219,6 +239,26 @@ public class TallerController {
                                               "status": 404,
                                               "detail": "No existe ningún taller con id 99",
                                               "instance": "/api/v1/talleres/99"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Ya existe otro taller con ese título",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Taller ya existe",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/taller-ya-existe",
+                                              "title": "Taller ya existe",
+                                              "status": 409,
+                                              "detail": "Ya existe un taller con el título 'Introducción a la fotografía'",
+                                              "instance": "/api/v1/talleres/3"
                                             }
                                             """
                             )
