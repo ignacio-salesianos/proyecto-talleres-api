@@ -30,4 +30,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(TallerYaExisteException.class)
+    public ProblemDetail handleTallerYaExiste(TallerYaExisteException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problem.setTitle("Taller ya existe");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://talleres-api.com/errors/taller-ya-existe"));
+        return problem;
+    }
+
 }

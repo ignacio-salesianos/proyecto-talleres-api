@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.talleres.service;
 
 import com.salesianostriana.dam.talleres.dto.TallerRequestDTO;
+import com.salesianostriana.dam.talleres.error.TallerYaExisteException;
 import com.salesianostriana.dam.talleres.error.notfound.OrganizadorNoEncontradoException;
 import com.salesianostriana.dam.talleres.error.notfound.TallerNoEncontradoException;
 import com.salesianostriana.dam.talleres.model.Organizador;
@@ -29,6 +30,9 @@ public class TallerService {
     }
 
     public Taller create(TallerRequestDTO dto) {
+        if (tallerRepository.existsByTituloIgnoreCase(dto.titulo().trim())) {
+            throw new TallerYaExisteException(dto.titulo().trim());
+        }
         Taller taller = dto.to();
         taller.setOrganizador(findOrganizador(dto.organizadorId()));
         return tallerRepository.save(taller);
@@ -36,6 +40,9 @@ public class TallerService {
 
     public Taller edit(Long id, TallerRequestDTO dto) {
         Taller taller = findById(id);
+        if (tallerRepository.existsByTituloIgnoreCaseAndIdNot(dto.titulo().trim(), id)) {
+            throw new TallerYaExisteException(dto.titulo().trim());
+        }
         taller.setTitulo(dto.titulo().trim());
         taller.setFechaHoraInicio(dto.fechaHoraInicio());
         taller.setFechaHoraFin(dto.fechaHoraFin());
