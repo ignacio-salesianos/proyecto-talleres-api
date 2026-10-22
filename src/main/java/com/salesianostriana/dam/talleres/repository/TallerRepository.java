@@ -7,4 +7,8 @@ public interface TallerRepository extends JpaRepository<Taller, Long> {
 
     boolean existsByOrganizadorId(Long organizadorId);
 
+    boolean existsByTituloIgnoreCase(String titulo);
+
+    boolean existsByTituloIgnoreCaseAndIdNot(String titulo, Long id);
+
 }
