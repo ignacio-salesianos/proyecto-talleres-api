@@ -24,11 +24,6 @@ public class DataSeed {
     @PostConstruct
     public void initData() {
 
-        /*
-            Datos de ejemplo para poder probar la API con Postman.
-            El organizador 3 no tiene talleres, así que se puede borrar.
-         */
-
         Organizador o1 = Organizador.builder()
                 .nombre("Lucía Fernández")
                 .email("lucia.fernandez@centrocultural.es")
@@ -74,10 +69,9 @@ public class DataSeed {
                 .organizador(o2)
                 .build();
 
-        t1.addParticipante(p1);
-        t1.addParticipante(p2);
-        t2.addParticipante(p1);
-        t3.addParticipante(p3);
+        t1.getParticipantes().addAll(List.of(p1, p2));
+        t2.getParticipantes().add(p1);
+        t3.getParticipantes().add(p3);
 
         tallerRepository.saveAll(List.of(t1, t2, t3));
 

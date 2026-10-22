@@ -32,7 +32,6 @@ public class Taller {
     @JoinColumn(name = "organizador_id", nullable = false)
     private Organizador organizador;
 
-    // La inscripcion es la propia asociacion M:M, sin entidad intermedia
     @ManyToMany
     @JoinTable(
             name = "inscripcion",
@@ -41,15 +40,5 @@ public class Taller {
     )
     @Builder.Default
     private List<Participante> participantes = new ArrayList<>();
-
-    public void addParticipante(Participante participante) {
-        participantes.add(participante);
-        participante.getTalleres().add(this);
-    }
-
-    public void removeParticipante(Participante participante) {
-        participantes.remove(participante);
-        participante.getTalleres().remove(this);
-    }
 
 }
