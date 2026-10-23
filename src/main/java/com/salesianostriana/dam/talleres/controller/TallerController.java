@@ -309,4 +309,95 @@ public class TallerController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Inscribir un participante en un taller",
+            description = "Inscribe a un participante existente en un taller existente. No se puede repetir la misma inscripción"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Participante inscrito. Devuelve el taller con todos sus inscritos",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = TallerResponseDTO.class),
+                            examples = @ExampleObject(
+                                    name = "Participante inscrito",
+                                    value = """
+                                            {
+                                              "id": 1,
+                                              "titulo": "Introducción a la fotografía",
+                                              "fechaHoraInicio": "2026-11-03T17:00:00",
+                                              "fechaHoraFin": "2026-11-03T19:00:00",
+                                              "organizador": {
+                                                "id": 1,
+                                                "nombre": "Lucía Fernández"
+                                              },
+                                              "participantes": [
+                                                {
+                                                  "id": 1,
+                                                  "nombreCompleto": "Carlos Martín Ruiz"
+                                                },
+                                                {
+                                                  "id": 2,
+                                                  "nombreCompleto": "Sara Gómez Pérez"
+                                                },
+                                                {
+                                                  "id": 4,
+                                                  "nombreCompleto": "Marta Delgado Sanz"
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No existe el taller o el participante indicado",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Participante no encontrado",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/not-found",
+                                              "title": "Recurso no encontrado",
+                                              "status": 404,
+                                              "detail": "No existe ningún participante con id 99",
+                                              "instance": "/api/v1/talleres/1/participantes/99"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "El participante ya está inscrito en ese taller",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Participante ya inscrito",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/participante-ya-inscrito",
+                                              "title": "Participante ya inscrito",
+                                              "status": 409,
+                                              "detail": "El participante con id 1 ya está inscrito en el taller con id 1",
+                                              "instance": "/api/v1/talleres/1/participantes/1"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    @PostMapping("/{tallerId}/participantes/{participanteId}")
+    public ResponseEntity<TallerResponseDTO> inscribir(
+            @Parameter(description = "Id del taller", example = "1") @PathVariable Long tallerId,
+            @Parameter(description = "Id del participante", example = "4") @PathVariable Long participanteId) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(TallerResponseDTO.of(tallerService.inscribir(tallerId, participanteId)));
+    }
+
 }
