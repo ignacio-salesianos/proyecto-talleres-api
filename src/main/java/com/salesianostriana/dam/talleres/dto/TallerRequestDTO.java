@@ -24,7 +24,7 @@ public record TallerRequestDTO(
         @NotNull(message = "{tallerRequestDTO.fechaHoraInicio.notNull}")
         LocalDateTime fechaHoraInicio,
 
-        @Schema(description = "Fecha y hora de fin", example = "2026-11-12T19:30:00")
+        @Schema(description = "Fecha y hora de fin, tiene que ser posterior a la de inicio", example = "2026-11-12T19:30:00")
         @NotNull(message = "{tallerRequestDTO.fechaHoraFin.notNull}")
         LocalDateTime fechaHoraFin,
 

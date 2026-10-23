@@ -208,7 +208,19 @@ public class OrganizadorController {
                     description = "No existe ningún organizador con ese id",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Organizador no encontrado",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/not-found",
+                                              "title": "Recurso no encontrado",
+                                              "status": 404,
+                                              "detail": "No existe ningún organizador con id 99",
+                                              "instance": "/api/v1/organizadores/99"
+                                            }
+                                            """
+                            )
                     )
             )
     })
@@ -233,7 +245,19 @@ public class OrganizadorController {
                     description = "No existe ningún organizador con ese id",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Organizador no encontrado",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/not-found",
+                                              "title": "Recurso no encontrado",
+                                              "status": 404,
+                                              "detail": "No existe ningún organizador con id 99",
+                                              "instance": "/api/v1/organizadores/99"
+                                            }
+                                            """
+                            )
                     )
             ),
             @ApiResponse(
