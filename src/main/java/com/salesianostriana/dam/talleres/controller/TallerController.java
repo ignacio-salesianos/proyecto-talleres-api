@@ -466,4 +466,42 @@ public class TallerController {
                         .toList());
     }
 
+    @Operation(
+            summary = "Desinscribir un participante de un taller",
+            description = "Elimina la inscripción conservando el taller y el participante. Si ambos existen pero no estaban vinculados, termina sin cambios"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Inscripción eliminada, o no existía y no se ha cambiado nada"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No existe el taller o el participante indicado",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Taller no encontrado",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/not-found",
+                                              "title": "Recurso no encontrado",
+                                              "status": 404,
+                                              "detail": "No existe ningún taller con id 99",
+                                              "instance": "/api/v1/talleres/99/participantes/1"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    @DeleteMapping("/{tallerId}/participantes/{participanteId}")
+    public ResponseEntity<Void> desinscribir(
+            @Parameter(description = "Id del taller", example = "1") @PathVariable Long tallerId,
+            @Parameter(description = "Id del participante", example = "2") @PathVariable Long participanteId) {
+        tallerService.desinscribir(tallerId, participanteId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
