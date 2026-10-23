@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.talleres.dto;
 
 import com.salesianostriana.dam.talleres.model.Taller;
+import com.salesianostriana.dam.talleres.validation.FechaFinPosterior;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
         name = "TallerRequestDTO",
         description = "Datos para crear o editar un taller"
 )
+@FechaFinPosterior(message = "{tallerRequestDTO.fechaHoraFin.posterior}")
 public record TallerRequestDTO(
         @Schema(description = "Título del taller, no se puede repetir", example = "Iniciación a la acuarela")
         @NotBlank(message = "{tallerRequestDTO.titulo.notBlank}")
