@@ -1,12 +1,16 @@
 package com.salesianostriana.dam.talleres.service;
 
 import com.salesianostriana.dam.talleres.dto.TallerRequestDTO;
+import com.salesianostriana.dam.talleres.error.ParticipanteYaInscritoException;
 import com.salesianostriana.dam.talleres.error.TallerYaExisteException;
 import com.salesianostriana.dam.talleres.error.notfound.OrganizadorNoEncontradoException;
+import com.salesianostriana.dam.talleres.error.notfound.ParticipanteNoEncontradoException;
 import com.salesianostriana.dam.talleres.error.notfound.TallerNoEncontradoException;
 import com.salesianostriana.dam.talleres.model.Organizador;
+import com.salesianostriana.dam.talleres.model.Participante;
 import com.salesianostriana.dam.talleres.model.Taller;
 import com.salesianostriana.dam.talleres.repository.OrganizadorRepository;
+import com.salesianostriana.dam.talleres.repository.ParticipanteRepository;
 import com.salesianostriana.dam.talleres.repository.TallerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ public class TallerService {
 
     private final TallerRepository tallerRepository;
     private final OrganizadorRepository organizadorRepository;
+    private final ParticipanteRepository participanteRepository;
 
     public List<Taller> findAll() {
         return tallerRepository.findAll();
@@ -55,9 +60,28 @@ public class TallerService {
         tallerRepository.delete(taller);
     }
 
+    public Taller inscribir(Long tallerId, Long participanteId) {
+        Taller taller = findById(tallerId);
+        Participante participante = findParticipante(participanteId);
+
+        boolean yaInscrito = taller.getParticipantes().stream()
+                .anyMatch(p -> p.getId().equals(participanteId));
+        if (yaInscrito) {
+            throw new ParticipanteYaInscritoException(participanteId, tallerId);
+        }
+
+        taller.getParticipantes().add(participante);
+        return tallerRepository.save(taller);
+    }
+
     private Organizador findOrganizador(Long organizadorId) {
         return organizadorRepository.findById(organizadorId)
                 .orElseThrow(() -> new OrganizadorNoEncontradoException(organizadorId));
+    }
+
+    private Participante findParticipante(Long participanteId) {
+        return participanteRepository.findById(participanteId)
+                .orElseThrow(() -> new ParticipanteNoEncontradoException(participanteId));
     }
 
 }

@@ -39,4 +39,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(ParticipanteYaInscritoException.class)
+    public ProblemDetail handleParticipanteYaInscrito(ParticipanteYaInscritoException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problem.setTitle("Participante ya inscrito");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://talleres-api.com/errors/participante-ya-inscrito"));
+        return problem;
+    }
+
 }
