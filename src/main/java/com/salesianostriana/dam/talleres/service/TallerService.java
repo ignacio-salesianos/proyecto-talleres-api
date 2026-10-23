@@ -78,6 +78,17 @@ public class TallerService {
         return findById(tallerId).getParticipantes();
     }
 
+    public void desinscribir(Long tallerId, Long participanteId) {
+        Taller taller = findById(tallerId);
+        findParticipante(participanteId);
+
+        boolean eliminado = taller.getParticipantes()
+                .removeIf(p -> p.getId().equals(participanteId));
+        if (eliminado) {
+            tallerRepository.save(taller);
+        }
+    }
+
     private Organizador findOrganizador(Long organizadorId) {
         return organizadorRepository.findById(organizadorId)
                 .orElseThrow(() -> new OrganizadorNoEncontradoException(organizadorId));
