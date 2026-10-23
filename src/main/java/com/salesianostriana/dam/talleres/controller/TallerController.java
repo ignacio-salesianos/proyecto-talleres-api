@@ -154,7 +154,31 @@ public class TallerController {
                     description = "Los datos enviados no son válidos",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Datos de taller no válidos",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/validation",
+                                              "title": "Datos no válidos",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/talleres",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "tallerRequestDTO",
+                                                  "message": "El título del taller es obligatorio",
+                                                  "field": "titulo",
+                                                  "rejectedValue": ""
+                                                },
+                                                {
+                                                  "object": "tallerRequestDTO",
+                                                  "message": "La fecha y hora de fin debe ser posterior a la de inicio"
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
                     )
             ),
             @ApiResponse(
@@ -222,7 +246,25 @@ public class TallerController {
                     description = "Los datos enviados no son válidos",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Datos de taller no válidos",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/validation",
+                                              "title": "Datos no válidos",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/talleres/1",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "tallerRequestDTO",
+                                                  "message": "La fecha y hora de fin debe ser posterior a la de inicio"
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
                     )
             ),
             @ApiResponse(

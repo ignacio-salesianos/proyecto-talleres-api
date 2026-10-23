@@ -93,7 +93,27 @@ public class ParticipanteController {
                     description = "Los datos enviados no son válidos",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Datos de participante no válidos",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/validation",
+                                              "title": "Datos no válidos",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/participantes",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "participanteRequestDTO",
+                                                  "message": "El nombre completo del participante es obligatorio",
+                                                  "field": "nombreCompleto",
+                                                  "rejectedValue": "  "
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
                     )
             )
     })

@@ -127,7 +127,32 @@ public class OrganizadorController {
                     description = "Los datos enviados no son válidos",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Datos de organizador no válidos",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/validation",
+                                              "title": "Datos no válidos",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/organizadores",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "organizadorRequestDTO",
+                                                  "message": "El nombre del organizador es obligatorio",
+                                                  "field": "nombre"
+                                                },
+                                                {
+                                                  "object": "organizadorRequestDTO",
+                                                  "message": "El email del organizador no tiene un formato válido",
+                                                  "field": "email",
+                                                  "rejectedValue": "no-es-un-email"
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
                     )
             )
     })
@@ -155,7 +180,27 @@ public class OrganizadorController {
                     description = "Los datos enviados no son válidos",
                     content = @Content(
                             mediaType = "application/problem+json",
-                            schema = @Schema(implementation = ProblemDetail.class)
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Datos de organizador no válidos",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/validation",
+                                              "title": "Datos no válidos",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/organizadores/1",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "organizadorRequestDTO",
+                                                  "message": "El email del organizador no tiene un formato válido",
+                                                  "field": "email",
+                                                  "rejectedValue": "no-es-un-email"
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
                     )
             ),
             @ApiResponse(
