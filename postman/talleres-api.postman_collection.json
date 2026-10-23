@@ -1,0 +1,907 @@
+{
+  "info": {
+    "_postman_id": "07b71a2b-0e6d-4351-97fa-5db2f39e95f4",
+    "name": "Talleres API",
+    "description": "Colección para probar la API de talleres culturales. Arrancar la aplicación y ejecutar las peticiones en orden (sirve el Runner de Postman), ya que algunas usan los datos creados por las anteriores.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58520589",
+    "_collection_link": "https://go.postman.co/collection/58520589-07b71a2b-0e6d-4351-97fa-5db2f39e95f4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Organizadores",
+      "item": [
+        {
+          "name": "Listar organizadores - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener organizador por id - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener organizador que no existe - 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear organizador - 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Antonio Ruiz\",\n  \"email\": \"antonio.ruiz@centrocultural.es\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizadores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear organizador con datos no válidos - 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"\",\n  \"email\": \"no-es-un-email\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizadores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar organizador - 200",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Antonio Ruiz Morales\",\n  \"email\": \"antonio.ruiz@centrocultural.es\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar organizador que no existe - 404",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Antonio Ruiz\",\n  \"email\": \"antonio.ruiz@centrocultural.es\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Borrar organizador con talleres - 409",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Borrar organizador - 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Borrar organizador que no existe - 404",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizadores/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizadores",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Talleres",
+      "item": [
+        {
+          "name": "Listar talleres - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener taller por id - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener taller que no existe - 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear taller - 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Iniciación a la acuarela\",\n  \"fechaHoraInicio\": \"2026-11-12T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-12T19:30:00\",\n  \"organizadorId\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear taller con título repetido - 409",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"  ESCRITURA creativa \",\n  \"fechaHoraInicio\": \"2026-11-20T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-20T19:00:00\",\n  \"organizadorId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear taller con fecha de fin anterior a la de inicio - 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Taller de guitarra\",\n  \"fechaHoraInicio\": \"2026-11-20T19:00:00\",\n  \"fechaHoraFin\": \"2026-11-20T17:00:00\",\n  \"organizadorId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear taller con datos vacíos - 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear taller con organizador que no existe - 404",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Taller de guitarra\",\n  \"fechaHoraInicio\": \"2026-11-20T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-20T19:00:00\",\n  \"organizadorId\": 99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar taller - 200",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Iniciación a la acuarela\",\n  \"fechaHoraInicio\": \"2026-11-12T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-12T20:00:00\",\n  \"organizadorId\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar taller con el título de otro taller - 409",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Escritura creativa\",\n  \"fechaHoraInicio\": \"2026-11-12T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-12T20:00:00\",\n  \"organizadorId\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar taller que no existe - 404",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Taller de guitarra\",\n  \"fechaHoraInicio\": \"2026-11-20T17:00:00\",\n  \"fechaHoraFin\": \"2026-11-20T19:00:00\",\n  \"organizadorId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Borrar taller - 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Borrar taller que no existe - 404",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Participantes",
+      "item": [
+        {
+          "name": "Listar participantes - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear participante - 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreCompleto\": \"Lucas Moreno Gil\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear participante con datos no válidos - 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreCompleto\": \"  \"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Inscripciones",
+      "item": [
+        {
+          "name": "Inscribir participante en un taller - 201",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/3/participantes/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "3",
+                "participantes",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inscribir participante que ya está inscrito - 409",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/3/participantes/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "3",
+                "participantes",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inscribir en un taller que no existe - 404",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99/participantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99",
+                "participantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inscribir un participante que no existe - 404",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/1/participantes/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "1",
+                "participantes",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver inscritos de un taller - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/1/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "1",
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver inscritos de un taller que no existe - 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99",
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desinscribir participante de un taller - 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/2/participantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "2",
+                "participantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver inscritos de un taller sin inscritos (lista vacía) - 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/2/participantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "2",
+                "participantes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desinscribir participante que no estaba inscrito (sin cambios) - 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/2/participantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "2",
+                "participantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desinscribir en un taller que no existe - 404",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/99/participantes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "99",
+                "participantes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desinscribir un participante que no existe - 404",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/talleres/1/participantes/99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "talleres",
+                "1",
+                "participantes",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1"
+    }
+  ]
+}
