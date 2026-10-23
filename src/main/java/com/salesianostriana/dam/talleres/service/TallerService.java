@@ -74,6 +74,10 @@ public class TallerService {
         return tallerRepository.save(taller);
     }
 
+    public List<Participante> findParticipantes(Long tallerId) {
+        return findById(tallerId).getParticipantes();
+    }
+
     private Organizador findOrganizador(Long organizadorId) {
         return organizadorRepository.findById(organizadorId)
                 .orElseThrow(() -> new OrganizadorNoEncontradoException(organizadorId));

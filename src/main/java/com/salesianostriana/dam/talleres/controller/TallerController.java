@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.talleres.controller;
 
+import com.salesianostriana.dam.talleres.dto.ParticipanteSimpleDTO;
 import com.salesianostriana.dam.talleres.dto.TallerRequestDTO;
 import com.salesianostriana.dam.talleres.dto.TallerResponseDTO;
 import com.salesianostriana.dam.talleres.service.TallerService;
@@ -398,6 +399,71 @@ public class TallerController {
             @Parameter(description = "Id del participante", example = "4") @PathVariable Long participanteId) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(TallerResponseDTO.of(tallerService.inscribir(tallerId, participanteId)));
+    }
+
+    @Operation(
+            summary = "Obtener los participantes inscritos en un taller",
+            description = "Devuelve la lista de inscritos de un taller. Si el taller existe pero no tiene inscritos, devuelve una lista vacía"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Listado de participantes inscritos",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ParticipanteSimpleDTO.class)),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Taller con inscritos",
+                                            value = """
+                                                    [
+                                                      {
+                                                        "id": 1,
+                                                        "nombreCompleto": "Carlos Martín Ruiz"
+                                                      },
+                                                      {
+                                                        "id": 2,
+                                                        "nombreCompleto": "Sara Gómez Pérez"
+                                                      }
+                                                    ]
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Taller sin inscritos",
+                                            value = "[]"
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No existe ningún taller con ese id",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Taller no encontrado",
+                                    value = """
+                                            {
+                                              "type": "https://talleres-api.com/errors/not-found",
+                                              "title": "Recurso no encontrado",
+                                              "status": 404,
+                                              "detail": "No existe ningún taller con id 99",
+                                              "instance": "/api/v1/talleres/99/participantes"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    @GetMapping("/{tallerId}/participantes")
+    public ResponseEntity<List<ParticipanteSimpleDTO>> getParticipantes(
+            @Parameter(description = "Id del taller", example = "1") @PathVariable Long tallerId) {
+        return ResponseEntity.ok(
+                tallerService.findParticipantes(tallerId)
+                        .stream()
+                        .map(ParticipanteSimpleDTO::of)
+                        .toList());
     }
 
 }
